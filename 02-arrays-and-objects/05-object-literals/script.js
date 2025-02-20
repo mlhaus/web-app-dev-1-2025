@@ -27,6 +27,9 @@ const person = {
     isAdmin: true
 };
 
+person.firstName = "Amy";
+person.address.city = "Iowa City";
+
 console.log(person.firstName + " " + person.lastName);
 console.log(person.dob);
 console.log(person.isAdmin);
@@ -45,7 +48,9 @@ const {lat, long} = person.address.coordinates; // destructuring
 console.log(lat);
 console.log(long);
 console.log(person);
-console.log(JSON.stringify(person))
+const json = JSON.stringify(person); // Convert JavaScript Object to JSON
+console.log(json);
+console.log(JSON.parse(json));
 
 
 
