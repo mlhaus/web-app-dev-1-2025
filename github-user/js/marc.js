@@ -8,9 +8,6 @@ const search_form = document.querySelector('.search-form');
 // company
 //     :
 //     "Kirkwood Community College"
-// created_at
-//     :
-//     "2016-02-20T14:50:58Z"
 // followers
 //     :
 //     59
@@ -29,13 +26,15 @@ const name = document.querySelector('.js-name');
 const username = document.querySelector('.js-user-github-link');
 const myLocation = document.querySelector('.js-location');
 const link = document.querySelector('.js-website');
+const createdAt = document.querySelector('.js-time');
 
 function loadUser(event) {
     event.preventDefault(); // Use this whenever using a submit eventListener to prevent the form from submitting to a server
-    // console.log(username_input.value);
+    let user = username_input.value || "octocat";
     // reset default state
     myLocation.classList.remove("is-not-available");
-    fetch('https://api.github.com/users/' + username_input.value)
+    link.classList.remove("is-not-available");
+    fetch('https://api.github.com/users/' + user)
         .then((response) => {
             // console.log(response.json());
             return response.json(); // This returns a Promise that contains the JSON
@@ -51,19 +50,34 @@ function loadUser(event) {
                 myLocation.classList.add("is-not-available");
             }
             if(promise.blog !== null && promise.blog !== "") {
-                let myNewLink = document.createElement("a");
-                myNewLink.href = promise.blog;
-                myNewLink.className = "result__link";
-                myNewLink.rel = "nofollow me";
-                myNewLink.textContent = promise.blog;
-                console.log(myNewLink);
-                console.log(link.lastElementChild);
-                link.lastElementChild.innerHTML = myNewLink;
+                link.lastElementChild.innerHTML = `<a href="${promise.blog}" class="result__link" rel="nofollow me" target="_blank">${extractDomain(promise.blog)}</a>`;
             } else {
                 link.classList.add("is-not-available");
                 link.lastElementChild.textContent = "Not available";
             }
+
+            let dateCreated = new Date(promise.created_at);
+            // Possible values for month are "numeric", "2-digit", "narrow", "short", "long".
+            let month = new Intl.DateTimeFormat('en-US', { month: 'long' }).format(dateCreated);
+            createdAt.textContent = `${dateCreated.getDate()} ${month} ${dateCreated.getFullYear()}`;
         });
 }
-
+window.addEventListener('DOMContentLoaded', loadUser);
 search_form.addEventListener('submit', loadUser);
+
+
+/**
+ * Extracts the domain (example.com) from a URL
+ * Source: https://claude.ai/share/3494e4d8-a73f-4b9e-8d16-0ac665dc573a
+ * @param {string} url - The URL to extract the domain from
+ * @return {string} The domain portion of the URL
+ */
+function extractDomain(url) {
+    // Remove protocol (http:// or https://) if it exists
+    let domain = url.replace(/^(?:https?:\/\/)?/, '');
+    // Remove www. if it exists
+    domain = domain.replace(/^www\./, '');
+    // Remove trailing slash and everything after the first slash
+    domain = domain.split('/')[0];
+    return domain;
+}
