@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="en" class="no-js">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, viewport-fit=cover"
+    />
+    <title>GitHub User Search App | devfinder</title>
+    <script>
+      document.querySelector("html").removeAttribute("class");
+    </script>
+    <script src="js/user-preference.min.js"></script>
+    <link rel="stylesheet" href="css/style.css" />
+<!--    <script src="js/app.min.js" defer></script>-->
+    <script src="js/marc.js" defer></script>
+    <!-- Favicons -->
+    <link rel="apple-touch-icon" href="favicons/apple-touch-icon.png" />
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="32x32"
+      href="favicons/favicon-32x32.png"
+    />
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="16x16"
+      href="favicons/favicon-16x16.png"
+    />
+    <link rel="icon" type="image/png" href="images/devfinder.png" />
+    <link
+      rel="mask-icon"
+      href="favicons/safari-pinned-tab.svg"
+      color="#5bbad5"
+    />
+    <meta name="msapplication-TileColor" content="#2b5797" />
+    <meta name="msapplication-config" content="favicons/browserconfig.xml" />
+<!--    <link rel="manifest" href="manifest.json" />-->
+    <meta name="theme-color" content="#ffffff" />
+    <meta
+      name="description"
+      content="In this project, I use the GitHub users API to pull profile data and display it. It's a great challenge for me to practice working with a 3rd-party API."
+    />
+    <meta name="url" content="https://officialdevfinder.netlify.app/" />
+    <meta property="og:locale" content="en_US" />
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="GitHub User Search App | devfinder" />
+    <meta property="og:site_name" content="devfinder" />
+    <meta
+      property="og:description"
+      content="In this project, I use the GitHub users API to pull profile data and display it. It's a great challenge for me to practice working with a 3rd-party API."
+    />
+    <meta property="og:url" content="https://officialdevfinder.netlify.app/" />
+    <meta
+      property="og:image"
+      content="https://officialdevfinder.netlify.app/design/preview.jpg"
+    />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:type" content="image/jpeg" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <link rel="canonical" href="https://officialdevfinder.netlify.app/" />
+    <link rel="sitemap" type="application/xml" href="sitemap.xml" />
+    <link
+      rel="author"
+      href="https://officialdevfinder.netlify.app/humans.txt"
+    />
+  </head>
+  <body dir="ltr">
+    <noscript>
+      <p>Please enable JavaScript to use this application.</p>
+    </noscript>
+    <header class="header">
+      <div class="container">
+        <a href="" class="header__home">
+          <svg
+            class="header__logo"
+            width="126"
+            height="21"
+            aria-hidden="true"
+            focusable="false"
+          >
+            <use href="svg/sprite.svg#logo"></use>
+          </svg>
+          <span class="sr-only">devfinder - Home</span>
+        </a>
+      </div>
+    </header>
+    <main id="main" class="app">
+      <h1 class="sr-only">GitHub user app example</h1>
+      <div class="container">
+        <form class="search-form js-search-form" autocomplete="on" method="get">
+          <input
+            type="text"
+            name="username"
+            id="username-input"
+            class="search-form__input js-search-input"
+            placeholder=" "
+            required
+            autocomplete="username"
+            inputmode="search"
+            aria-describedby="error"
+          />
+          <label for="username-input" class="search-form__placeholder">
+            Search GitHub username...
+          </label>
+          <p
+            id="error"
+            class="search-form__error js-alert-message"
+            aria-live="polite"
+          ></p>
+          <button class="search-form__button" type="submit">Search</button>
+        </form>
+        <p
+          class="sr-only js-notification"
+          role="status"
+          aria-live="polite"
+          aria-atomic="true"
+        ></p>
+        <div class="result">
+          <img
+            src="images/octocat.jpg"
+            alt="@octocat"
+            class="result__avatar js-avatar"
+            width="120"
+            height="120"
+          />
+          <div class="result__person">
+            <div class="result__wrapper">
+              <h2 class="result__name js-name">The Octocat</h2>
+              <a
+                href="https://github.com/octocat"
+                class="result__username js-user-github-link"
+                rel="nofollow me" target="_blank"
+              >
+                @octocat
+              </a>
+            </div>
+            <p class="result__join-date">
+              Joined
+              <time
+                class="result__time js-time"
+                datetime="2011-01-25T18:44:36Z"
+              >
+                25 Jan 2011
+              </time>
+            </p>
+          </div>
+          <p class="result__bio js-bio is-not-available">
+            This profile has no bio
+          </p>
+          <ul class="result__statistic" role="list">
+            <li class="result__item">
+              <span class="result__category">Repos</span>
+              <span class="result__number js-repository">8</span>
+            </li>
+            <li class="result__item">
+              <span class="result__category">Followers</span>
+              <span class="result__number js-followers">3938</span>
+            </li>
+            <li class="result__item">
+              <span class="result__category">Following</span>
+              <span class="result__number js-following">9</span>
+            </li>
+          </ul>
+          <ul class="result__details" role="list">
+            <li class="result__item js-location">
+              <svg
+                class="result__icon"
+                width="14"
+                height="20"
+                aria-hidden="true"
+                focusable="false"
+              >
+                <use href="svg/sprite.svg#location"></use>
+              </svg>
+              <span class="sr-only">Location:</span>
+              <span class="result__location js-value">San Francisco</span>
+            </li>
+            <li class="result__item js-website">
+              <svg
+                class="result__icon"
+                width="20"
+                height="20"
+                aria-hidden="true"
+                focusable="false"
+              >
+                <use href="svg/sprite.svg#link"></use>
+              </svg>
+              <span class="sr-only">Website:</span>
+              <span class="js-value">
+                <a
+                  href="https://github.blog"
+                  class="result__link"
+                  rel="nofollow me"
+                >
+                  https://github.blog
+                </a>
+              </span>
+            </li>
+            <li class="result__item js-twitter">
+              <svg
+                class="result__icon"
+                width="20"
+                height="18"
+                aria-hidden="true"
+                focusable="false"
+              >
+                <use href="svg/sprite.svg#twitter"></use>
+              </svg>
+              <span class="sr-only">Twitter:</span>
+              <span class="js-value">
+                <span class="result__link"> Not Available </span>
+              </span>
+            </li>
+            <li class="result__item js-office">
+              <svg
+                class="result__icon"
+                width="20"
+                height="20"
+                aria-hidden="true"
+                focusable="false"
+              >
+                <use href="svg/sprite.svg#office"></use>
+              </svg>
+              <span class="sr-only">Office:</span>
+              <span class="js-value">
+                <a
+                  href="https://github.com/github"
+                  class="result__link"
+                  rel="nofollow me"
+                >
+                  @github
+                </a>
+              </span>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </main>
+    <footer class="attribution">
+      <div class="container">
+        <p class="attribution__credit">
+          Challenge by
+          <a href="https://www.frontendmentor.io/" class="attribution__link">
+            Frontend Mentor</a
+          >. Coded by
+          <a href="https://github.com/vanzasetia" class="attribution__link">
+            Vanza Setia</a
+          >.
+        </p>
+      </div>
+    </footer>
+<!--    <script>-->
+<!--      if ("serviceWorker" in navigator) {-->
+<!--        window.addEventListener("load", () => {-->
+<!--          navigator.serviceWorker.register("/service-worker.js");-->
+<!--        });-->
+<!--      }-->
+<!--    </script>-->
+  </body>
+</html>

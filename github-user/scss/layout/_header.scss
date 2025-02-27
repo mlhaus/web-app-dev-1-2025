@@ -1,0 +1,10 @@
+@use "../abstracts/index" as *;
+
+.header__home {
+  color: var(--header-logo-color);
+}
+
+.header .container {
+  display: flex;
+  justify-content: space-between;
+}

@@ -1,0 +1,15 @@
+@use "../abstracts/index" as *;
+
+.attribution .container {
+  margin-top: rem(35);
+  box-shadow: var(--primary-box-shadow);
+  border-radius: rem(15);
+  background-color: var(--result-background-color);
+  padding: rem(20);
+  text-align: center;
+}
+
+.attribution__link {
+  color: var(--link-color);
+  text-underline-offset: 0.2em;
+}

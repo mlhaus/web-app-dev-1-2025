@@ -1,0 +1,197 @@
+@use "../abstracts/index" as *;
+
+@font-face {
+  font-style: normal;
+  font-weight: 700;
+  src: local("Space Mono"), local("Space Mono Bold"), local("SpaceMono Bold"),
+    local("SpaceMono-Bold"), url("/fonts/SpaceMonoBold.woff2") format("woff2"),
+    url("/fonts/SpaceMonoBold.woff") format("woff");
+  font-family: "Space Mono";
+  font-display: swap;
+}
+
+@font-face {
+  font-style: normal;
+  font-weight: 400;
+  src: local("Space Mono"), local("Space Mono Regular"),
+    local("SpaceMono Regular"), local("SpaceMono-Regular"),
+    url("/fonts/SpaceMonoRegular.woff2") format("woff2"),
+    url("/fonts/SpaceMonoRegular.woff") format("woff");
+  font-family: "Space Mono";
+  font-display: swap;
+}
+
+:root {
+  --blue: hsl(212deg 100% 50%);
+  --light-blue: hsl(217deg 20% 51%);
+  --dark-blue-100: hsl(217deg 35% 45%);
+  --dark-blue-200: hsl(222deg 41% 20%);
+  --very-dark-blue-100: hsl(217deg 21% 21%);
+  --very-dark-blue-200: hsl(220deg 18% 16%);
+  --very-dark-blue-300: hsl(220deg 40% 13%);
+  --very-light-blue: hsl(227deg 100% 98%);
+  --white: hsl(0deg 0% 100%);
+  --primary-transition: 250ms ease-in-out;
+  --container-max-width: clamp(21.88rem, calc(6.39rem + 66.09vw), 45.63rem);
+  --body-padding: clamp(1.5rem, calc(0.03rem + 6.26vw), 3.75rem);
+  --landmark-font-size: clamp(0.81rem, calc(0.6rem + 0.89vw), 0.94rem);
+  --header-logo-color: var(--very-dark-blue-200);
+  --link-color: var(--dark-blue-100);
+  --body-background-color: var(--very-light-blue);
+  --body-font-color: var(--dark-blue-100);
+  --result-background-color: var(--white);
+  --result-name-color: var(--very-dark-blue-100);
+  --result-statistic-background-color: var(--very-light-blue);
+  --result-number-color: var(--very-dark-blue-100);
+  --theme-switcher-text-hover-color: var(--very-dark-blue-200);
+  --search-form-input-background-color: var(--white);
+  --search-form-input-color: var(--very-dark-blue-200);
+  --focus-visible-outline-color: var(--very-dark-blue-300);
+  --primary-box-shadow: 0 #{rem(16)} #{rem(30)} #{rem(-10)} rgb(70 96 187 / 20%);
+}
+
+@media screen and (prefers-color-scheme: dark) {
+  :root {
+    --header-logo-color: var(--white);
+    --link-color: var(--white);
+    --body-background-color: var(--very-dark-blue-300);
+    --body-font-color: var(--white);
+    --result-background-color: var(--dark-blue-200);
+    --result-name-color: var(--white);
+    --result-statistic-background-color: var(--very-dark-blue-300);
+    --result-number-color: var(--white);
+    --theme-switcher-text-hover-color: hsl(222deg 44% 70%);
+    --search-form-input-background-color: var(--dark-blue-200);
+    --search-form-input-color: var(--white);
+    --focus-visible-outline-color: var(--white);
+    --primary-box-shadow: none;
+  }
+}
+
+.is-light {
+  --header-logo-color: var(--very-dark-blue-200);
+  --link-color: var(--dark-blue-100);
+  --body-background-color: var(--very-light-blue);
+  --body-font-color: var(--dark-blue-100);
+  --result-background-color: var(--white);
+  --result-name-color: var(--very-dark-blue-100);
+  --result-statistic-background-color: var(--very-light-blue);
+  --result-number-color: var(--very-dark-blue-100);
+  --theme-switcher-text-hover-color: var(--very-dark-blue-200);
+  --search-form-input-background-color: var(--white);
+  --search-form-input-color: var(--very-dark-blue-200);
+  --focus-visible-outline-color: var(--very-dark-blue-300);
+  --primary-box-shadow: 0 #{rem(16)} #{rem(30)} #{rem(-10)} rgb(70 96 187 / 20%);
+}
+
+.is-dark {
+  --header-logo-color: var(--white);
+  --link-color: var(--white);
+  --body-background-color: var(--very-dark-blue-300);
+  --body-font-color: var(--white);
+  --result-background-color: var(--dark-blue-200);
+  --result-name-color: var(--white);
+  --result-statistic-background-color: var(--very-dark-blue-300);
+  --result-number-color: var(--white);
+  --theme-switcher-text-hover-color: hsl(222deg 44% 70%);
+  --search-form-input-background-color: var(--dark-blue-200);
+  --search-form-input-color: var(--white);
+  --focus-visible-outline-color: var(--white);
+  --primary-box-shadow: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 1ms !important;
+    animation-delay: -1ms !important;
+    animation-iteration-count: 1 !important;
+    transition-delay: 0s !important;
+    transition-duration: 0s !important;
+    background-attachment: initial !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+*,
+*::after,
+*::before {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+:focus {
+  @include focus-styling(var(--focus-visible-outline-color));
+}
+
+/**
+ * Screen Reader Class
+ * 
+ * To hide content visually.
+ *
+ * For more information: https://gist.github.com/ffoodd/000b59f431e3e64e4ce1a24d5bb36034
+ */
+.sr-only {
+  position: absolute !important;
+  clip-path: inset(50%) !important;
+  margin: -1px !important;
+  border: 0 !important;
+  padding: 0 !important;
+  width: 1px !important;
+  height: 1px !important;
+  overflow: hidden !important;
+  white-space: nowrap !important;
+}
+
+body {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  background-color: var(--body-background-color);
+  padding: var(--body-padding);
+  color: var(--body-font-color);
+
+  @include prefers-motion {
+    transition: background-color var(--primary-transition),
+      color var(--primary-transition);
+  }
+}
+
+header,
+main,
+footer {
+  font: var(--landmark-font-size) / 1.6 "Space Mono", monospace;
+}
+
+img {
+  display: block;
+  max-width: 100%;
+  height: auto;
+}
+
+/**
+ * Set font-size on Form Elements for a 
+ * Better Mobile Experience
+ *
+ * To avoid mobile browsers (iOS Safari,
+ * et al.) from zooming in on HTML form 
+ * elements when a <select> drop-down is
+ * tapped, add font-size to the selector
+ * rule.
+ *
+ * Source: https://github.com/AllThingsSmitty/css-protips#set-font-size-on-form-elements-for-a-better-mobile-experience
+ */
+input[type="text"],
+input[type="number"],
+select,
+textarea {
+  font-size: 1rem;
+}
+
+svg {
+  stroke-width: 0;
+  stroke: currentColor;
+  fill: currentColor;
+}

@@ -1,0 +1,104 @@
+@use "../abstracts/index" as *;
+
+.search-form {
+  position: relative;
+  margin-top: rem(36);
+  margin-bottom: rem(32);
+
+  @include breakpoint-up("tiny") {
+    margin-top: rem(42);
+    margin-bottom: rem(38);
+  }
+}
+
+.search-form__input {
+  display: block;
+  box-shadow: var(--primary-box-shadow);
+  border: none;
+  border-radius: rem(15);
+  background: url("../svg/icon-search.svg") no-repeat top rem(20) left #{rem(16)}/#{rem(
+      20
+    )};
+  background-color: var(--search-form-input-background-color);
+  padding: rem(18) rem(98) rem(18) rem(45);
+  width: 100%;
+  height: rem(60);
+  color: var(--search-form-input-color);
+
+  @include prefers-motion {
+    transition: background-color var(--primary-transition),
+      color var(--primary-transition);
+  }
+
+  @include breakpoint-up("tiny") {
+    background-position: top rem(23) left rem(32);
+    background-size: rem(24);
+    padding: rem(22) rem(126) rem(22) rem(80);
+    height: rem(70);
+    font-size: rem(18);
+  }
+}
+
+.search-form__placeholder {
+  position: absolute;
+  top: rem(20);
+  left: rem(45);
+
+  @include prefers-motion {
+    transition: top var(--primary-transition), left var(--primary-transition);
+  }
+
+  @include breakpoint-up("tiny") {
+    top: rem(22);
+    left: rem(80);
+    font-size: rem(18);
+  }
+}
+
+.search-form__input:not(:placeholder-shown) ~ .search-form__placeholder {
+  top: rem(-25);
+  left: rem(35);
+
+  @include breakpoint-up("tiny") {
+    top: rem(-30);
+  }
+}
+
+.search-form__button {
+  display: inline-block;
+  position: absolute;
+  top: rem(7);
+  right: rem(7);
+  cursor: pointer;
+  border: none;
+  border-radius: rem(10);
+  background-color: var(--blue);
+  padding: rem(13) rem(18);
+  color: var(--white);
+  font-weight: 700;
+
+  @include on-event {
+    background-color: hsl(212deg 100% 69%);
+  }
+
+  @include prefers-motion {
+    transition: background-color var(--primary-transition);
+  }
+
+  @include breakpoint-up("tiny") {
+    padding: rem(14) rem(24);
+    font-size: rem(16);
+  }
+}
+
+.search-form__error {
+  position: absolute;
+  top: rem(65);
+  right: 0;
+  color: hsl(0deg 91% 62%);
+  font-weight: 700;
+
+  @include breakpoint-up("tiny") {
+    top: rem(74);
+  }
+}

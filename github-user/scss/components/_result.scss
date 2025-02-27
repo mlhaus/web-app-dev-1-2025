@@ -1,0 +1,187 @@
+@use "../abstracts/index" as *;
+
+@mixin link-styling {
+  color: var(--link-color);
+  text-decoration: none;
+
+  @include on-event {
+    text-decoration: underline;
+  }
+}
+
+.result {
+  display: grid;
+  grid-template-columns: rem(70) 1fr;
+  grid-template-areas:
+    "avatar person"
+    "bio bio"
+    "statistic statistic"
+    "details details";
+  column-gap: rem(20);
+  row-gap: rem(25);
+  box-shadow: var(--primary-box-shadow);
+  border-radius: rem(15);
+  background-color: var(--result-background-color);
+  padding: rem(32) rem(24);
+
+  @include prefers-motion {
+    transition: background-color var(--primary-transition);
+  }
+
+  @include breakpoint-up("tiny") {
+    grid-template-columns: rem(120) 1fr;
+    column-gap: rem(40);
+    row-gap: rem(30);
+    padding: rem(40);
+  }
+
+  @include breakpoint-up("very-small") {
+    grid-template-rows: repeat(auto-fill, minmax(#{rem(60), 1fr}));
+    grid-template-columns: rem(120) repeat(2, 1fr);
+    grid-template-areas:
+      "avatar person person"
+      "avatar bio bio"
+      ". statistic statistic"
+      ". details details";
+    align-items: flex-start;
+    padding: rem(48);
+  }
+}
+
+.result__avatar {
+  grid-area: avatar;
+  border-radius: 50%;
+  width: rem(70);
+  height: rem(70);
+
+  @include breakpoint-up("tiny") {
+    width: rem(120);
+    height: rem(120);
+  }
+}
+
+.result__person {
+  display: flex;
+  grid-area: person;
+  flex-direction: column;
+  justify-content: center;
+
+  @include breakpoint-up("very-small") {
+    flex-direction: row;
+    justify-content: space-between;
+  }
+}
+
+.result__name {
+  color: var(--result-name-color);
+  font-size: clamp(1rem, calc(-0.04rem + 4.44vw), 1.63rem);
+}
+
+.result__username {
+  color: var(--blue);
+  text-decoration: none;
+
+  @include on-event {
+    text-decoration: underline;
+  }
+}
+
+.result__bio {
+  grid-area: bio;
+}
+
+.result__statistic {
+  display: flex;
+  grid-area: statistic;
+  justify-content: space-between;
+  align-items: center;
+  gap: rem(5);
+  border-radius: rem(10);
+  background-color: var(--result-statistic-background-color);
+  padding: rem(19);
+  text-align: center;
+
+  @include prefers-motion {
+    transition: background-color var(--primary-transition);
+  }
+
+  @include breakpoint-up("tiny") {
+    padding: rem(16) rem(96) rem(16) rem(32);
+    text-align: left;
+  }
+}
+
+.result__category {
+  font-size: clamp(0.75rem, calc(0.65rem + 0.44vw), 0.81rem);
+}
+
+.result__number {
+  display: block;
+  margin-top: rem(8);
+  color: var(--result-number-color);
+  font-weight: 700;
+  font-size: clamp(1rem, calc(0.38rem + 2.67vw), 1.38rem);
+}
+
+.result__details {
+  grid-area: details;
+
+  @include breakpoint-up("tiny") {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-areas:
+      "location twitter"
+      "website company";
+    gap: rem(16) rem(40);
+  }
+}
+
+.result__details .result__item {
+  padding-left: rem(30);
+  word-break: break-word;
+}
+
+.result__details .result__item:first-child {
+  grid-area: location;
+}
+
+.result__details .result__item:nth-child(2) {
+  grid-area: website;
+}
+
+.result__details .result__item:nth-child(3) {
+  grid-area: twitter;
+}
+
+.result__details .result__item:last-child {
+  grid-area: company;
+}
+
+.result__icon {
+  float: left;
+  margin-top: rem(4);
+  margin-left: rem(-30);
+}
+
+.result__details .result__item:not(:first-child) {
+  margin-top: rem(16);
+
+  @include breakpoint-up("tiny") {
+    margin-top: 0;
+  }
+}
+
+.result__link {
+  @include link-styling;
+}
+
+.is-not-available {
+  opacity: 0.5;
+  cursor: not-allowed;
+  text-decoration: none;
+}
+
+.is-not-available .result__link {
+  cursor: inherit;
+  text-decoration: inherit;
+}
