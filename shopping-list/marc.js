@@ -62,11 +62,51 @@ function updateItem(item) {
     // Step 1: place the item's text in the form's input field
     itemInput.value = item.textContent;
     // Step 2: Change the Add button to an Update button
-    itemFormBtn.innerHTML = '<i class="fa-solid fa-pen"></i>   Update Item';
+    itemFormBtn.innerHTML = '<i class="fa-solid fa-pen"></i> Update Item';
     itemFormBtn.style.backgroundColor = '#228B22';
     // Step 3: Change the style of all buttons except the one that was clicked
     itemList.querySelectorAll('li').forEach(i => i.classList.remove('edit-mode'));
     item.classList.add('edit-mode');
+}
+
+function inEditMode() {
+    let editMode = false;
+    const listItems = itemList.querySelectorAll('li');
+    for (let i = 0; i < listItems.length; i++) {
+        if(listItems[i].classList.contains('edit-mode')) {
+            editMode = true;
+            break;
+        }
+    }
+    return editMode;
+}
+
+function updateListItem(itemName) {
+    const listItems = itemList.querySelectorAll('li');
+    for (let i = 0; i < listItems.length; i++) {
+        let currentItem = listItems[i];
+        if(currentItem.classList.contains('edit-mode')) {
+            currentItem.textContent = "";
+            currentItem.appendChild(document.createTextNode(itemName));
+            const button = createButton('red', 'circle-xmark', 'remove-item');
+            currentItem.appendChild(button);
+            const listItemsArr = getItemsFromStorage();
+            listItemsArr[i] = itemName;
+            localStorage.setItem('items', JSON.stringify(listItemsArr));
+            turnOffEdit(currentItem);
+            break;
+        }
+    }
+}
+
+function turnOffEdit(item) {
+    // Step 1: remove the text in the form's input field
+    itemInput.value = "";
+    // Step 2: Change the Update button to an Add button
+    itemFormBtn.innerHTML = '<i class="fa-solid fa-plus"></i> Add Item';
+    itemFormBtn.style.backgroundColor = '#333';
+    // Step 3: Change the style of all buttons except the one that was clicked
+    item.classList.remove('edit-mode');
 }
 // End Update/Delete functionality
 
@@ -74,17 +114,30 @@ function updateItem(item) {
 window.addEventListener('DOMContentLoaded', setUp);
 itemForm.addEventListener('submit', (event) => {
     event.preventDefault();
+    let editMode = inEditMode();
     let inputItemValue = itemInput.value;
     if(inputItemValue !== '') {
-        createListItem(inputItemValue);
-        storeListItem(inputItemValue);
-        inputItemValue = '';
+        if (!editMode) {
+            // Adding a new item
+            createListItem(inputItemValue);
+            storeListItem(inputItemValue);
+            itemInput.value = '';
+        } else {
+            // Edit an existing item
+            updateListItem(inputItemValue);
+        }
     }
 })
 itemList.addEventListener('click', function (event) {
     if (event.target.tagName === 'LI') {
         // console.log("You clicked the list item");
-        updateItem(event.target);
+        if(event.target.classList.contains('edit-mode')) {
+            // Turn off edit mode
+            turnOffEdit(event.target);
+        } else {
+            // Turn on edit mode
+            updateItem(event.target);
+        }
     } else if(event.target.parentElement.classList.contains('remove-item')) {
         // console.log("You clicked the delete button");
         // This is your homework
